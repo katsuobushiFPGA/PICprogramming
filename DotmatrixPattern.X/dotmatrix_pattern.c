@@ -27,6 +27,7 @@ unsigned int w_chara4[16]={0x0000,0x0008,0x0208,0x0308,0x0188,0x40e8,0x40b8,0x40
 /* prototype declare*/
 void word(unsigned int data);
 void word2(unsigned int a[16]);
+void word_clear();
 ///*cons*/
 
 void main( )
@@ -39,10 +40,16 @@ void main( )
     PORTB = 0x00;//portb init
     PORTC = 0x00;//portc init
     //PORTB~C data
-    word2(w_chara);
-    word2(w_chara2);
-        //1文字目
-  
+    while(1){
+        for(int i=0;i<40;i++){
+            word2(w_chara4);
+            word2(w_chara3);
+        }
+        for(int i=0;i<40;i++){
+            word2(w_chara2);
+            word2(w_chara);
+        }
+    }
 }
 /*
 void word(unsigned int data){
@@ -55,6 +62,15 @@ void word2(unsigned int a[16]){
         RA0=1;
         PORTB=a[i] >> 8;
         PORTC=a[i] & 0xff;
+        RA0=0;
+        __delay_us(800);
+    }
+}
+void word_clear(){
+    for(int i=0;i<16;i++){
+        RA0=1;
+        PORTB=0x00;
+        PORTC=0x00;
         RA0=0;
         __delay_us(800);
     }
